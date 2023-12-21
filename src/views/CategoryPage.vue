@@ -1,4 +1,5 @@
 <template>
+  <h2 class="fs-2">{{ name }}</h2>
   <div class="products row">
     <ProductCard
       class="col-lg-3 col-sm-4 col-6"
@@ -18,7 +19,9 @@
 import ProductCard from "@/components/ProductCard.vue";
 
 export default {
-  name: "HomePage",
+  name: "CategoryPage",
+  props: ["name"],
+
   components: {
     ProductCard,
   },
@@ -28,21 +31,28 @@ export default {
     };
   },
   mounted() {
-    fetch("https://fakestoreapi.com/products?limit=10")
-      .then((res) => res.json())
-      .then((json) => (this.products = json));
+    this.updateProducts(this.name);
+  },
+  created() {
+    this.$watch(
+      () => this.$route.params,
+      (toParams) => {
+        this.updateProducts(toParams.name);
+      }
+    );
+  },
+  methods: {
+    updateProducts(param) {
+      fetch(`https://fakestoreapi.com/products/category/${param}?limit=10`)
+        .then((res) => res.json())
+        .then((json) => (this.products = json));
+    },
   },
 };
 </script>
- 
-<style>
-.toast-header img {
-  filter: invert(100%);
-  width: 20px;
-  height: 20px;
-}
 
-* {
-  margin: 0;
+<style>
+h2::first-letter {
+  text-transform: uppercase;
 }
 </style>

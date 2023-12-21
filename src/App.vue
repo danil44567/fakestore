@@ -1,13 +1,25 @@
 <template>
   <nav class="header">
     <a href="/"><h1>Tamedbeast</h1></a>
-    <a href="/" class="shoping-cart">
-      <img src="@\assets\cart_nxs4fyq12xid.svg" alt="" />
-      <p>Корзина</p>
-    </a>
+    <div class="nav-right">
+      <button
+        class="nav-icon"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasRight"
+      >
+        <img src="@\assets\category-svgrepo-com (1).svg" alt="" />
+        <p>Категории</p>
+      </button>
+
+      <a href="/" class="nav-icon">
+        <img src="@\assets\cart_nxs4fyq12xid.svg" alt="" />
+        <p>Корзина</p>
+      </a>
+    </div>
   </nav>
   <main class="container">
     <router-view />
+    <OffCanvas />
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
       <div
         id="liveToast"
@@ -38,6 +50,16 @@
   <nav class="footer"></nav>
 </template>
 
+<script>
+import OffCanvas from "./components/OffCanvas.vue";
+
+export default {
+  components: {
+    OffCanvas,
+  },
+};
+</script>
+
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -54,9 +76,15 @@
   margin-top: 60px;
 }
 
+.nav-right {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
 nav {
   background: linear-gradient(to right, #11cb31 0, #09721b 100%) no-repeat;
-  padding: 10px;
+  padding: 5px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -93,18 +121,24 @@ button:hover {
   scale: 1.02;
 }
 
-.shoping-cart {
+.nav-icon {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  background: none !important;
+  transition: scale 0.1s;
 }
 
-.shoping-cart p {
+.nav-icon:hover {
+  scale: 1.02;
+}
+
+.nav-icon p {
   color: #fff;
 }
 
-.shoping-cart img {
+.nav-icon img {
   width: 40px;
   height: 40px;
   color: #fff;
