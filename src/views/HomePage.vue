@@ -1,6 +1,7 @@
 <template>
-  <div class="products">
+  <div class="products row">
     <ProductCard
+      class="col-lg-3 col-sm-4 col-6"
       v-for="product in products"
       :key="product.id"
       :id="product.id"
@@ -11,6 +12,7 @@
       :rate="product.rating.rate"
     />
   </div>
+
 </template>
 
 <script>
@@ -35,12 +37,10 @@ export default {
 </script>
  
 <style>
-.products {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 10px;
+.toast-header img {
+  filter: invert(100%);
+  width: 20px;
+  height: 20px;
 }
 
 * {

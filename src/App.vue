@@ -6,9 +6,35 @@
       <p>Корзина</p>
     </a>
   </nav>
-
-  <router-view />
-
+  <main class="container">
+    <router-view />
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div
+        id="liveToast"
+        class="toast"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+        data-bs-delay="1000"
+      >
+        <div class="toast-header">
+          <img
+            src="@\assets\cart_nxs4fyq12xid.svg"
+            class="rounded me-2"
+            alt=""
+          />
+          <strong class="me-auto">Корзина</strong>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="toast-body">Товар добавлен в корзину</div>
+      </div>
+    </div>
+  </main>
   <nav class="footer"></nav>
 </template>
 
@@ -40,6 +66,11 @@ nav h1 {
   text-transform: uppercase;
   font-size: 36px;
   color: #fff;
+  margin: 0;
+}
+
+nav p {
+  margin: 0;
 }
 
 nav a {
@@ -52,8 +83,8 @@ button {
   background-color: #10cc6f;
   border: none;
   padding: 5px 15px;
-  font-size: 18px;
-  border-radius: 10px;
+  font-size: 18px !important;
+  border-radius: 10px !important;
   transition: scale 0.1s;
 }
 
@@ -77,5 +108,21 @@ button:hover {
   width: 40px;
   height: 40px;
   color: #fff;
+}
+
+.price {
+  display: flex;
+  gap: 15px;
+  padding-bottom: 10px;
+}
+
+.price-real {
+  font-size: 18px;
+}
+
+.price-fake {
+  font-size: 14px;
+  color: gray;
+  text-decoration: line-through;
 }
 </style>

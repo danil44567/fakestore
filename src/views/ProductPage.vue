@@ -1,14 +1,31 @@
 <template>
-  
-  <h1>{{ title }}</h1>
-  <img class="page-image" :src="image" :alt="title" />
+  <h1 class="fs-1 fw-bold">{{ title }}</h1>
+  <div class="row">
+    <img class="page-image col-4" :src="image" :alt="title" />
+    <div class="price-block col-3 g-4">
+      <div class="price col-12">
+        <p class="price-real">{{ price }}$</p>
+        <p class="price-fake">{{ price * 2 }}$</p>
+      </div>
+      <button class="col-12" @click.stop.prevent="addCart">В корзину</button>
+    </div>
+  </div>
+  <p class="fs-3 fw-bold">Description</p>
   <p>{{ description }}</p>
-  <p>{{ price }} $</p>
-  <p>{{ rating.rate }}</p>
-  <p>{{ rating.count }}</p>
+  <div class="rate">
+    <img src="@\assets\star_9jfrkmkc6jof.svg" alt="" />
+    <p class="fs-4">{{ rating.rate }}</p>
+  </div>
+  <div class="row">
+    <p class="col-1 fs-4 text-black-50">Отзывы</p>
+    <p class="col-1 fs-4">{{ rating.count }}</p>
+  </div>
+  
 </template>
 
 <script>
+import bootstrap from "bootstrap/dist/js/bootstrap.bundle";
+
 export default {
   name: "ProductPage",
   props: ["id"],
@@ -32,11 +49,53 @@ export default {
       rating: { count: 0, rate: 0 },
     };
   },
+  methods: {
+    addCart() {
+      bootstrap.Toast.getOrCreateInstance(
+        document.getElementById("liveToast")
+      ).show();
+    },
+  },
 };
 </script>
     
 <style>
-.page-image{
+.page-image {
   height: 400px;
+  object-fit: contain;
+}
+
+.price-block {
+  box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.442);
+  border-radius: 10px;
+  height: 110px;
+}
+
+.price-block p {
+  margin: 0;
+}
+
+.price-block .price-real {
+  font-size: 36px;
+  font-weight: 600;
+}
+
+.price-block .price-fake {
+  font-size: 24px;
+}
+
+.rate{
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  gap: 12px;
+}
+
+.rate p{
+  margin: 0;
+}
+
+.rate img {
+  width: 40px;
 }
 </style>

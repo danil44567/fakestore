@@ -6,9 +6,9 @@
     <div class="product__main">
       <img class="product__img" :src="image" :alt="title" />
       <div class="product__info">
-        <div class="product__price">
-          <p class="product__price-real">{{ price }}$</p>
-          <p class="product__price-fake">{{ price * 2 }}$</p>
+        <div class="price">
+          <p class="price-real">{{ price }}$</p>
+          <p class="price-fake">{{ price * 2 }}$</p>
         </div>
 
         <p class="product__title">{{ title }}</p>
@@ -25,12 +25,14 @@
 </template>
 
 <script>
+import bootstrap from 'bootstrap/dist/js/bootstrap.bundle'
+
 export default {
   name: "ProductCard",
   props: ["id", "title", "description", "image", "price", "rate"],
   methods: {
     addCart() {
-      console.log("Add");
+      bootstrap.Toast.getOrCreateInstance(document.getElementById('liveToast')).show()
     },
   },
 };
@@ -38,7 +40,7 @@ export default {
 
 <style>
 .product {
-  width: 300px;
+  /* width: 300px; */
   text-decoration: none;
   color: inherit;
 }
@@ -47,29 +49,29 @@ export default {
   box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.442);
 }
 
+.product:hover{
+  position: relative;
+}
+
 .product:hover .product__in-cart {
   display: block;
 }
 
 .product__main {
   border-radius: 10px;
-  /* background: gainsboro; */
+  /* box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.442); */
 }
 
 .product:hover .product__main {
   position: absolute;
-  width: inherit;
   background-color: white;
-}
-.test2 {
-  display: none;
+  left: 0;
+  right: 0;
+  z-index: 100;
 }
 
-.product:hover .test2 {
-  display: block;
-  background-color: red;
-  height: 20px;
-  width: 20px;
+.product:hover .product__img {
+  padding: 5px;
 }
 
 .product:hover .product__title {
@@ -82,26 +84,6 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 10px;
-}
-
-.product__price {
-  display: flex;
-  gap: 15px;
-  padding-bottom: 10px;
-}
-
-.product__price-real {
-  font-size: 18px;
-}
-
-.product__price-fake {
-  font-size: 14px;
-  color: gray;
-  text-decoration: line-through;
-}
-
-.product:hover .product__img {
-  padding: 5px;
 }
 
 .product__title {
@@ -119,12 +101,6 @@ export default {
   transition: all 0.3s;
 }
 
-/* .product__img {
-  width: 100%;
-  height: 300px;
-  object-fit: cover;
-  transition: all 0.3s;
-} */
 .product__rate {
   display: flex;
   gap: 5px;
@@ -140,5 +116,9 @@ export default {
 
 .product__in-cart {
   display: none;
+}
+
+.product p{
+  margin: 0;
 }
 </style>
