@@ -1,30 +1,30 @@
 <template>
   <h1 class="fs-1 fw-bold">{{ title }}</h1>
   <div class="row">
-    <img class="page-image col-4" :src="image" :alt="title" />
-    <div class="price-block col-3 g-4">
+    <img class="page-image col-xl-4 col-md-6" :src="image" :alt="title" />
+    <div class="price-block col-xl-3 col-md-5 g-4">
       <div class="price col-12">
         <p class="price-real">{{ price }}$</p>
         <p class="price-fake">{{ price * 2 }}$</p>
       </div>
-      <button class="col-12" @click.stop.prevent="addCart">В корзину</button>
+      <p class="product__delivery"><span>Доставка</span> когда-нибудь</p>
+      <AddCartButton class="col-12" />
     </div>
   </div>
-  <p class="fs-3 fw-bold">Description</p>
+  <p class="fs-3 fw-bold pt-3">Description</p>
   <p>{{ description }}</p>
   <div class="rate">
     <img src="@\assets\star_9jfrkmkc6jof.svg" alt="" />
     <p class="fs-4">{{ rating.rate }}</p>
   </div>
   <div class="row">
-    <p class="col-1 fs-4 text-black-50">Отзывы</p>
+    <p class="col-xl-1 col-sm-2 col-3 fs-4 text-black-50">Отзывы</p>
     <p class="col-1 fs-4">{{ rating.count }}</p>
   </div>
-  
 </template>
 
 <script>
-import bootstrap from "bootstrap/dist/js/bootstrap.bundle";
+import AddCartButton from '@/components/AddCartButton.vue';
 
 export default {
   name: "ProductPage",
@@ -49,12 +49,8 @@ export default {
       rating: { count: 0, rate: 0 },
     };
   },
-  methods: {
-    addCart() {
-      bootstrap.Toast.getOrCreateInstance(
-        document.getElementById("liveToast")
-      ).show();
-    },
+  components: {
+    AddCartButton,
   },
 };
 </script>
@@ -68,7 +64,7 @@ export default {
 .price-block {
   box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.442);
   border-radius: 10px;
-  height: 110px;
+  height: 140px;
 }
 
 .price-block p {
@@ -84,14 +80,14 @@ export default {
   font-size: 24px;
 }
 
-.rate{
+.rate {
   display: flex;
   align-items: center;
   justify-items: center;
   gap: 12px;
 }
 
-.rate p{
+.rate p {
   margin: 0;
 }
 

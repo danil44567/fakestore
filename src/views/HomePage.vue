@@ -12,15 +12,19 @@
       :rate="product.rating.rate"
     />
   </div>
+
+  <AppPagination />
 </template>
 
 <script>
 import ProductCard from "@/components/ProductCard.vue";
+import AppPagination from "@/components/AppPagination.vue";
 
 export default {
   name: "HomePage",
   components: {
     ProductCard,
+    AppPagination,
   },
   data() {
     return {

@@ -18,29 +18,26 @@
         </div>
 
         <p class="product__delivery"><span>Доставка</span> когда-нибудь</p>
-        <button class="product__in-cart" @click.stop.prevent="addCart">В корзину</button>
+        <AddCartButton class="product__in-cart" :product="id"/>
       </div>
     </div>
   </router-link>
 </template>
 
 <script>
-import bootstrap from 'bootstrap/dist/js/bootstrap.bundle'
+import AddCartButton from "./AddCartButton.vue";
 
 export default {
   name: "ProductCard",
   props: ["id", "title", "description", "image", "price", "rate"],
-  methods: {
-    addCart() {
-      bootstrap.Toast.getOrCreateInstance(document.getElementById('liveToast')).show()
-    },
+  components: {
+    AddCartButton,
   },
 };
 </script>
 
 <style>
 .product {
-  /* width: 300px; */
   text-decoration: none;
   color: inherit;
 }
@@ -49,7 +46,7 @@ export default {
   box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.442);
 }
 
-.product:hover{
+.product:hover {
   position: relative;
 }
 
@@ -118,7 +115,7 @@ export default {
   display: none;
 }
 
-.product p{
+.product p {
   margin: 0;
 }
 </style>
