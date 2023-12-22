@@ -10,7 +10,7 @@
         <img src="@\assets\category-svgrepo-com (1).svg" alt="" />
         <p>Категории</p>
       </button>
-      <router-link to="cart" class="nav-icon">
+      <router-link to="/cart" class="nav-icon">
         <img src="@\assets\cart_nxs4fyq12xid.svg" alt="" />
         <p>Корзина</p>
       </router-link>

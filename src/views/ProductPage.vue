@@ -8,10 +8,10 @@
         <p class="price-fake">{{ price * 2 }}$</p>
       </div>
       <p class="product__delivery"><span>Доставка</span> когда-нибудь</p>
-      <AddCartButton class="col-12" />
+      <AddCartButton :product="id" class="col-12" />
     </div>
   </div>
-  <p class="fs-3 fw-bold pt-3">Description</p>
+  <p class="fs-3 fw-bold pt-3">Описание</p>
   <p>{{ description }}</p>
   <div class="rate">
     <img src="@\assets\star_9jfrkmkc6jof.svg" alt="" />

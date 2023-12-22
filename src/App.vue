@@ -5,12 +5,13 @@
       <router-view />
       <OffCanvas />
       <div class="toast-container position-fixed bottom-0 end-0 p-3">
-        <LiveToast toast="liveToast" text="Товар добавлен в корзину"/>
-        <LiveToast toast="liveToastErr" text="Такой товар уже есть в корзине"/>
+        <LiveToast toast="liveToast" text="Товар добавлен в корзину" />
+        <LiveToast toast="liveToastErr" text="Такой товар уже есть в корзине" />
       </div>
-      
     </main>
-    <nav class="footer mt-auto">Tamedbeast</nav>
+    <nav class="footer mt-auto d-flex justify-content-center">
+      ©️ Tamedbeast
+    </nav>
   </div>
 </template>
 
@@ -23,7 +24,7 @@ export default {
   components: {
     OffCanvas,
     AppHeader,
-    LiveToast
+    LiveToast,
   },
 };
 </script>
@@ -62,11 +63,24 @@ button {
   padding: 5px 15px;
   font-size: 18px !important;
   border-radius: 10px !important;
-  transition: scale 0.1s;
+  transition: all 0.1s;
 }
 
 button:hover {
   background-color: #0da659;
   scale: 1.02;
+}
+
+button:active{
+  background-color: rgb(11, 194, 102);
+  scale: 1;
+}
+
+.non-selectable {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 </style>

@@ -9,6 +9,8 @@ export default {
   props: ["product"],
   methods: {
     addCart() {
+      if (this.product == null) return;
+
       let local = localStorage.getItem("cart");
 
       if (local == undefined) {
@@ -19,10 +21,8 @@ export default {
         if (cart.indexOf(this.product) == -1) {
           cart.push(this.product);
           this.saveCart(cart);
-        }
-        else
-        {
-            this.showToast("liveToastErr")
+        } else {
+          this.showToast("liveToastErr");
         }
       }
     },

@@ -1,25 +1,46 @@
 <template>
-  <div class="pagination col-6 mt-3 mx-auto justify-content-center">
-    <div class="pagination__element right-border right-radius">
-      <p>&lt;</p>
+  <div v-if="pages > 0" class="pagination col-6 mt-3 mx-auto justify-content-center">
+    <div
+      class="pagination__element right-border right-radius"
+      @click="movePage(-1)"
+    >
+      <p class="non-selectable">&lt;</p>
     </div>
-    <div class="pagination__element right-border left-border">
-      <p>1</p>
-    </div>
-    <div class="pagination__element right-border left-border">
-      <p>2</p>
-    </div>
-    <div class="pagination__element right-border left-border">
-      <p>3</p>
-    </div>
-    <div class="pagination__element left-border left-radius">
-      <p>&gt;</p>
+    <PaginationElement
+      class="pagination__element right-border left-border"
+      v-for="n in pages"
+      :class="{ pagination__selected: n == currentPage + 1 }"
+      :key="n"
+      :value="n"
+      @changePage="changePage"
+    />
+
+    <div
+      class="pagination__element left-border left-radius"
+      @click="movePage(1)"
+    >
+      <p class="non-selectable">&gt;</p>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+import PaginationElement from "./PaginationElement.vue";
+
+export default {
+  components: {
+    PaginationElement,
+  },
+  props: ["pages", "currentPage"],
+  methods: {
+    changePage(value) {
+      this.$emit("changePage", value);
+    },
+    movePage(moveIndex) {
+      this.$emit("movePage", moveIndex);
+    },
+  },
+};
 </script>
 
 <style>
@@ -32,6 +53,14 @@ export default {};
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.pagination__selected {
+  background-color: #00ff80;
+}
+
+.pagination__selected:hover {
+  background-color: #00ff80 !important;
 }
 
 .pagination__element:hover {

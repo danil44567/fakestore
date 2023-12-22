@@ -1,5 +1,6 @@
 <template>
   <h2 class="fs-2">{{ name }}</h2>
+  <LoadingSpinner v-if="products == 0"/>
   <div class="products row">
     <ProductCard
       class="col-lg-3 col-sm-4 col-6"
@@ -17,6 +18,7 @@
 
 <script>
 import ProductCard from "@/components/ProductCard.vue";
+import LoadingSpinner from "@/components/LoadingSpinner.vue";
 
 export default {
   name: "CategoryPage",
@@ -24,6 +26,7 @@ export default {
 
   components: {
     ProductCard,
+    LoadingSpinner
   },
   data() {
     return {

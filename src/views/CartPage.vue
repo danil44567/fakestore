@@ -1,6 +1,7 @@
 <template>
   <h1>Корзина</h1>
-  <p v-if="products.length == 0">Корзина пуста...</p>
+  <LoadingSpinner v-if="isLoading" />
+  <p v-if="products.length == 0 && isLoading == false">Корзина пуста...</p>
   <ProductCardInCart
     v-for="product in products"
     :key="product.id"
@@ -11,29 +12,39 @@
 
 <script>
 import ProductCardInCart from "@/components/ProductCardInCart.vue";
+import LoadingSpinner from "@/components/LoadingSpinner.vue";
 
 export default {
   data() {
     return {
       products: [],
+      isLoading: true,
     };
   },
   mounted() {
     let local = localStorage.getItem("cart");
     if (local != undefined) {
+      console.log(local)
       local = JSON.parse(local);
       let promises = [];
       local.forEach((element) => {
         promises.push(fetch("https://fakestoreapi.com/products/" + element));
       });
-      Promise.all(promises).then((responses) => {
-        responses.forEach((element) => {
-          element.json().then((json) => this.products.push(json));
-        });
-      });
+      Promise.all(promises)
+        .then((responses) => {
+          responses.forEach((element) => {
+            element.json().then((json) => this.products.push(json));
+          });
+        })
+        .then(() => (this.isLoading = false));
+    } else {
+      this.isLoading = false;
     }
   },
-  components: { ProductCardInCart },
+  components: {
+    ProductCardInCart,
+    LoadingSpinner,
+  },
 };
 </script>
 
