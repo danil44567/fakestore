@@ -6,18 +6,20 @@
     <div class="product__main">
       <img class="product__img" :src="image" :alt="title" />
       <div class="product__info">
-        <div class="price">
-          <p class="price-real">{{ price }}$</p>
-          <p class="price-fake">{{ price * 2 }}$</p>
-        </div>
+        <div class="product__info-body">
+          <div class="price">
+            <p class="price-real">{{ price }}$</p>
+            <p class="price-fake">{{ price * 2 }}$</p>
+          </div>
 
-        <p class="product__title">{{ title }}</p>
-        <div class="product__rate">
-          <img src="@\assets\star_9jfrkmkc6jof.svg" alt="" />
-          <p>{{ rate }}</p>
+          <p class="product__title">{{ title }}</p>
+          <div class="product__rate">
+            <img src="@\assets\star_9jfrkmkc6jof.svg" alt="" />
+            <p>{{ rate }}</p>
+          </div>
         </div>
-
         <p class="product__delivery"><span>Доставка</span> когда-нибудь</p>
+
         <AddCartButton
           class="product__in-cart"
           :product="id"
@@ -52,6 +54,10 @@ export default {
   color: inherit;
 }
 
+.product__main {
+  border-radius: 10px;
+}
+
 .product:hover .product__main {
   box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.442);
 }
@@ -62,11 +68,6 @@ export default {
 
 .product:hover .product__in-cart {
   display: block;
-}
-
-.product__main {
-  border-radius: 10px;
-  /* box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.442); */
 }
 
 .product:hover .product__main {
@@ -91,6 +92,14 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.product__info-body{
+  padding: inherit;
+  display: flex;
+  flex-direction: inherit;
+  gap: inherit;
+  align-items: stretch;
 }
 
 .product__title {
@@ -127,5 +136,11 @@ export default {
 
 .product p {
   margin: 0;
+}
+
+@media (max-width: 992px) {
+  .product__in-cart {
+    display: block;
+  }
 }
 </style>

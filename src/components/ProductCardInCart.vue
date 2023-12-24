@@ -5,7 +5,7 @@
   >
     <div class="product-in-cart__body">
       <div class="d-flex gap-4">
-        <img :src="image" :alt="title" />
+        <img class="product-in-cart__image" :src="image" :alt="title" />
         <p>{{ title }}</p>
       </div>
       <div class="price">
@@ -15,7 +15,7 @@
           @click.stop.prevent="removeCart"
           class="product__trash"
           src="@\assets\trash-xmark-svgrepo-com.svg"
-          alt=""
+          alt="Удаление"
         />
       </div>
     </div>
@@ -71,6 +71,11 @@ export default {
 
 .product__trash:hover {
   filter: invert(0%);
+}
+
+.product-in-cart__image{
+  object-fit: contain;
+  width: 100px;
 }
 
 @media (min-width: 992px) {

@@ -63,13 +63,19 @@ export default {
   },
   methods: {
     changePage(value) {
-      this.currentPage = value - 1;
+      let newPage = value - 1;
+      if (newPage == this.currentPage) return;
+      this.setPage(newPage);
     },
     movePage(moveIndex) {
       let newPage = this.currentPage + moveIndex;
       if (newPage >= 0 && newPage < this.products.length) {
-        this.currentPage = newPage;
+        this.setPage(newPage);
       }
+    },
+    setPage(value) {
+      window.scroll(0, 0);
+      this.currentPage = value;
     },
     cartUpdate(cart) {
       this.$emit("cartUpdate", cart);

@@ -29,6 +29,7 @@ import AddCartButton from "@/components/AddCartButton.vue";
 export default {
   name: "ProductPage",
   props: ["id"],
+  emits: ["cartUpdate"],
   mounted() {
     fetch("https://fakestoreapi.com/products/" + this.id)
       .then((res) => res.json())

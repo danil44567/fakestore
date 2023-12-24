@@ -12,6 +12,7 @@
       :image="product.image"
       :price="product.price"
       :rate="product.rating.rate"
+      @cartUpdate="cartUpdate"
     />
   </div>
 </template>
@@ -23,7 +24,7 @@ import LoadingSpinner from "@/components/LoadingSpinner.vue";
 export default {
   name: "CategoryPage",
   props: ["name"],
-
+  emits: ["cartUpdate"],
   components: {
     ProductCard,
     LoadingSpinner,
@@ -52,6 +53,9 @@ export default {
         .then((res) => res.json())
         .then((json) => (this.products = json))
         .catch(() => (this.isApiError = true));
+    },
+    cartUpdate(cart) {
+      this.$emit("cartUpdate", cart);
     },
   },
 };

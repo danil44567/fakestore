@@ -50,7 +50,7 @@ nav h1 {
 
 nav p {
   margin: 0;
-  /* font-size: 12px; */
+  font-size: 12px;
 }
 
 nav a {
@@ -96,6 +96,15 @@ nav a {
   color: black;
   padding: 1.875px 7px;
   font-size: 12px;
+}
+@media (max-width: 360px) {
+  nav p {
+    font-size: 10px;
+  }
+
+  .nav-right {
+    gap: 5px;
+  }
 }
 
 /* // Small devices (landscape phones, 576px and up) */

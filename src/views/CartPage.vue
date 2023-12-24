@@ -97,7 +97,6 @@ export default {
           responses.forEach((element) => {
             element.json().then((json) => {
               this.products.push(json);
-              // console.log(json)
             });
           });
         })
