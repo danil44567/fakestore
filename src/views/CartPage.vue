@@ -4,7 +4,7 @@
 
   <p v-if="products.length == 0 && isLoading == false">Корзина пуста...</p>
   <div class="row" v-if="products.length > 0">
-    <div class="d-flex gap-3 flex-column col-8">
+    <div class="d-flex gap-3 flex-column col-md-8 col-12">
       <ProductCardInCart
         v-for="product in products"
         :key="product.id"
@@ -14,18 +14,22 @@
         :image="product.image"
         :price="product.price"
         :rate="product.rating.rate"
+        @removeCart="removeCart"
       >
       </ProductCardInCart>
-      <button @click="clearCart">Очистить</button>
+      <button @click="clearCart">Очистить корзину</button>
     </div>
-    <div class="cart__price-block col-4">
-      <div class="d-flex justify-content-between">
-        <p>Итого</p>
-        <p>{{ priceSum }}$</p>
-      </div>
+    <div class="col-md-4 col-12 mt-md-0 mt-3">
+      <div class="cart__price-block">
+        <p>Товары, {{ products.length }} шт</p>
+        <div class="d-flex justify-content-between fs-3 font-weight-bold">
+          <p>Итого</p>
+          <p>{{ priceSum }}$</p>
+        </div>
 
-      <p class="product__delivery"><span>Доставка</span> когда-нибудь</p>
-      <button>Оплатить</button>
+        <p class="product__delivery"><span>Доставка</span> когда-нибудь</p>
+        <button>Оплатить</button>
+      </div>
     </div>
   </div>
 </template>
@@ -47,7 +51,10 @@ export default {
   methods: {
     clearCart() {
       this.products = [];
-      localStorage.setItem("cart", this.products);
+      this.saveCart("");
+    },
+    saveCart(saveStr) {
+      localStorage.setItem("cart", saveStr);
       this.$emit("cartUpdate", this.products);
     },
     calculateSum() {
@@ -57,6 +64,21 @@ export default {
       });
       newSum = Math.round(newSum * 100) / 100;
       this.priceSum = newSum;
+    },
+    removeCart(id) {
+      let deleteIndex = this.products.findIndex((p) => p.id == id);
+      if (deleteIndex != -1) {
+        this.products.splice(deleteIndex, 1);
+      }
+      let local = localStorage.getItem("cart");
+      if (local != undefined && local != "") {
+        local = JSON.parse(local);
+        deleteIndex = local.indexOf(id);
+        if (deleteIndex != -1) {
+          local.splice(deleteIndex, 1);
+          this.saveCart(JSON.stringify(local));
+        }
+      }
     },
   },
   updated() {
@@ -73,7 +95,10 @@ export default {
       Promise.all(promises)
         .then((responses) => {
           responses.forEach((element) => {
-            element.json().then((json) => this.products.push(json));
+            element.json().then((json) => {
+              this.products.push(json);
+              // console.log(json)
+            });
           });
         })
         .then(() => {
@@ -97,12 +122,15 @@ export default {
 .cart__price-block {
   box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.442);
   border-radius: 30px;
-  height: 150px;
-  padding: 10px;
+  /* height: 150px; */
+  padding: 15px;
   display: flex;
   flex-direction: column;
+  position: sticky;
+  top: 100px;
 }
 
-.cart__price p {
+.cart__price-block p {
+  margin: 0;
 }
 </style>

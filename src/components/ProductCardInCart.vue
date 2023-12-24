@@ -11,6 +11,12 @@
       <div class="price">
         <p class="price-real">{{ price }}$</p>
         <p class="price-fake">{{ price * 2 }}$</p>
+        <img
+          @click.stop.prevent="removeCart"
+          class="product__trash"
+          src="@\assets\trash-xmark-svgrepo-com.svg"
+          alt=""
+        />
       </div>
     </div>
   </router-link>
@@ -19,6 +25,12 @@
 <script>
 export default {
   props: ["id", "title", "description", "image", "price", "rate"],
+  emits: ["removeCart"],
+  methods: {
+    removeCart() {
+      this.$emit("removeCart", this.id);
+    },
+  },
 };
 </script>
 
@@ -38,12 +50,32 @@ export default {
   justify-content: space-between;
 }
 
+.product-in-cart__body:hover .product__trash {
+  display: block;
+}
+
 .product-in-cart__body .price {
   flex-direction: column;
   gap: 5px;
+  align-items: end;
 }
 
 .product-in-cart__body .price p {
   margin: 0;
+}
+.product__trash {
+  display: block;
+  width: 50px;
+  filter: invert(50%);
+}
+
+.product__trash:hover {
+  filter: invert(0%);
+}
+
+@media (min-width: 992px) {
+  .product__trash {
+    display: none;
+  }
 }
 </style>
