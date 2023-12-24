@@ -1,8 +1,8 @@
 <template class="asd">
   <div class="d-flex flex-column min-vh-100">
-    <AppHeader />
+    <AppHeader :cartCount="cartCout" />
     <main class="container mb-5">
-      <router-view />
+      <router-view @cartUpdate="cartUpdate" />
       <OffCanvas />
       <div class="toast-container position-fixed bottom-0 end-0 p-3">
         <LiveToast toast="liveToast" text="Товар добавлен в корзину" />
@@ -21,10 +21,27 @@ import AppHeader from "./components/AppHeader.vue";
 import LiveToast from "./components/LiveToast.vue";
 
 export default {
+  data() {
+    return {
+      cartCout: 0,
+    };
+  },
   components: {
     OffCanvas,
     AppHeader,
     LiveToast,
+  },
+  methods: {
+    cartUpdate(cart) {
+      this.cartCout = cart.length;
+    },
+  },
+  mounted() {
+    let local = localStorage.getItem("cart");
+    if (local != undefined && local != "") {
+      let cart = JSON.parse(local);
+      this.cartCout = cart.length;
+    }
   },
 };
 </script>
@@ -71,7 +88,7 @@ button:hover {
   scale: 1.02;
 }
 
-button:active{
+button:active {
   background-color: rgb(11, 194, 102);
   scale: 1;
 }

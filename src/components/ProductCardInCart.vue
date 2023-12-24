@@ -1,13 +1,49 @@
 <template>
-  <p>{{ title }}</p>
+  <router-link
+    class="product-in-cart"
+    :to="{ name: 'product', params: { id: this.id } }"
+  >
+    <div class="product-in-cart__body">
+      <div class="d-flex gap-4">
+        <img :src="image" :alt="title" />
+        <p>{{ title }}</p>
+      </div>
+      <div class="price">
+        <p class="price-real">{{ price }}$</p>
+        <p class="price-fake">{{ price * 2 }}$</p>
+      </div>
+    </div>
+  </router-link>
 </template>
 
 <script>
 export default {
-    props: ['title']
-}
+  props: ["id", "title", "description", "image", "price", "rate"],
+};
 </script>
 
 <style>
+.product-in-cart {
+  color: inherit;
+  text-decoration: none;
+}
 
+.product-in-cart__body {
+  box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.442);
+  display: flex;
+  flex-direction: row;
+  border-radius: 30px;
+  height: 150px;
+  padding: 10px;
+  justify-content: space-between;
+}
+
+.product-in-cart__body .price {
+  flex-direction: column;
+  gap: 5px;
+}
+
+.product-in-cart__body .price p {
+  margin: 0;
+}
 </style>

@@ -11,7 +11,12 @@
         <p>Категории</p>
       </button>
       <router-link to="/cart" class="nav-icon">
-        <img src="@\assets\cart_nxs4fyq12xid.svg" alt="" />
+        <div class="position-relative d-flex f-row align-items-center">
+          <img src="@\assets\cart_nxs4fyq12xid.svg" alt="" />
+          <div v-if="cartCount > 0" class="header_cart-count">
+            <p>{{ cartCount }}</p>
+          </div>
+        </div>
         <p>Корзина</p>
       </router-link>
     </div>
@@ -19,7 +24,9 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["cartCount"],
+};
 </script>
 
 <style>
@@ -74,6 +81,23 @@ nav a {
   color: #fff;
 }
 
+.header_cart-count {
+  position: absolute;
+  top: -7px;
+  right: -13px;
+  background-color: #10cc6f;
+  border-radius: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header_cart-count p {
+  color: black;
+  padding: 1.875px 7px;
+  font-size: 12px;
+}
+
 /* // Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
   .nav-icon img {
@@ -83,6 +107,16 @@ nav a {
   nav p {
     margin: 0;
     font-size: 14px;
+  }
+
+  .header_cart-count p {
+    padding: 3.75px 9px;
+    font-size: 12px;
+  }
+
+  .header_cart-count {
+    top: -5px;
+    right: -20px;
   }
 }
 
@@ -103,6 +137,11 @@ nav a {
 
   nav {
     padding: 5px 30px;
+  }
+
+  .header_cart-count p {
+    padding: 5px 12px;
+    font-size: 16px;
   }
 }
 

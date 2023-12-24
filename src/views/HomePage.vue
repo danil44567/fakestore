@@ -1,5 +1,5 @@
 <template>
-  <LoadingSpinner v-if="products.length == 0" />
+  <LoadingSpinner v-if="products.length == 0" :isError="isApiError" />
 
   <div class="products row">
     <ProductCard
@@ -12,6 +12,7 @@
       :image="product.image"
       :price="product.price"
       :rate="product.rating.rate"
+      @cartUpdate="cartUpdate"
     />
   </div>
 
@@ -30,6 +31,7 @@ import LoadingSpinner from "@/components/LoadingSpinner.vue";
 
 export default {
   name: "HomePage",
+  emits: ["cartUpdate"],
   components: {
     ProductCard,
     AppPagination,
@@ -39,6 +41,7 @@ export default {
     return {
       products: [],
       currentPage: 0,
+      isApiError: false,
       // isLoadingError,
     };
   },
@@ -53,6 +56,9 @@ export default {
           subarray[i] = json.slice(i * size, i * size + size);
         }
         this.products = subarray;
+      })
+      .catch(() => {
+        this.isApiError = true;
       });
   },
   methods: {
@@ -64,6 +70,9 @@ export default {
       if (newPage >= 0 && newPage < this.products.length) {
         this.currentPage = newPage;
       }
+    },
+    cartUpdate(cart) {
+      this.$emit("cartUpdate", cart);
     },
   },
 };

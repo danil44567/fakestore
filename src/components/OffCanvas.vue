@@ -15,6 +15,8 @@
       ></button>
     </div>
     <div class="offcanvas-body">
+      <LoadingSpinner v-if="categories.length == 0" :isError="isApiError" />
+
       <router-link
         @click="hideOffCanvas"
         v-for="(category, index) in categories"
@@ -31,18 +33,21 @@
 
 <script>
 import bootstrap from "bootstrap/dist/js/bootstrap.bundle";
+import LoadingSpinner from "@/components/LoadingSpinner.vue";
 
 export default {
   name: "OffCanvas",
   data() {
     return {
       categories: [],
+      isApiError: false,
     };
   },
   mounted() {
     fetch("https://fakestoreapi.com/products/categories")
       .then((res) => res.json())
-      .then((json) => (this.categories = json));
+      .then((json) => (this.categories = json))
+      .catch(() => (this.isApiError = true));
   },
   methods: {
     hideOffCanvas() {
@@ -50,6 +55,9 @@ export default {
         document.getElementById("offcanvasRight")
       ).hide();
     },
+  },
+  components: {
+    LoadingSpinner,
   },
 };
 </script>

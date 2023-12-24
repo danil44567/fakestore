@@ -1,6 +1,6 @@
 <template>
   <h2 class="fs-2">{{ name }}</h2>
-  <LoadingSpinner v-if="products == 0"/>
+  <LoadingSpinner v-if="products == 0" :isError="isApiError" />
   <div class="products row">
     <ProductCard
       class="col-lg-3 col-sm-4 col-6"
@@ -26,11 +26,12 @@ export default {
 
   components: {
     ProductCard,
-    LoadingSpinner
+    LoadingSpinner,
   },
   data() {
     return {
       products: [],
+      isApiError: false,
     };
   },
   mounted() {
@@ -40,6 +41,7 @@ export default {
     this.$watch(
       () => this.$route.params,
       (toParams) => {
+        this.products = [];
         this.updateProducts(toParams.name);
       }
     );
@@ -48,7 +50,8 @@ export default {
     updateProducts(param) {
       fetch(`https://fakestoreapi.com/products/category/${param}?limit=10`)
         .then((res) => res.json())
-        .then((json) => (this.products = json));
+        .then((json) => (this.products = json))
+        .catch(() => (this.isApiError = true));
     },
   },
 };

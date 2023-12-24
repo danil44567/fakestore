@@ -18,7 +18,11 @@
         </div>
 
         <p class="product__delivery"><span>Доставка</span> когда-нибудь</p>
-        <AddCartButton class="product__in-cart" :product="id"/>
+        <AddCartButton
+          class="product__in-cart"
+          :product="id"
+          @cartUpdate="cartUpdate"
+        />
       </div>
     </div>
   </router-link>
@@ -30,8 +34,14 @@ import AddCartButton from "./AddCartButton.vue";
 export default {
   name: "ProductCard",
   props: ["id", "title", "description", "image", "price", "rate"],
+  emits: ["cartUpdate"],
   components: {
     AddCartButton,
+  },
+  methods: {
+    cartUpdate(cart) {
+      this.$emit("cartUpdate", cart);
+    },
   },
 };
 </script>

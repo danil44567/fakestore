@@ -7,13 +7,14 @@ import bootstrap from "bootstrap/dist/js/bootstrap.bundle";
 
 export default {
   props: ["product"],
+  emits: ["cartUpdate"],
   methods: {
     addCart() {
       if (this.product == null) return;
 
       let local = localStorage.getItem("cart");
 
-      if (local == undefined) {
+      if (local == undefined || local == "") {
         let cart = [this.product];
         this.saveCart(cart);
       } else {
@@ -29,6 +30,7 @@ export default {
     saveCart(cart) {
       localStorage.setItem("cart", JSON.stringify(cart));
       this.showToast("liveToast");
+      this.$emit("cartUpdate", cart);
     },
     showToast(id) {
       bootstrap.Toast.getOrCreateInstance(document.getElementById(id)).show();

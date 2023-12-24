@@ -8,7 +8,7 @@
         <p class="price-fake">{{ price * 2 }}$</p>
       </div>
       <p class="product__delivery"><span>Доставка</span> когда-нибудь</p>
-      <AddCartButton :product="id" class="col-12" />
+      <AddCartButton :product="+id" class="col-12" @cartUpdate="cartUpdate"/>
     </div>
   </div>
   <p class="fs-3 fw-bold pt-3">Описание</p>
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import AddCartButton from '@/components/AddCartButton.vue';
+import AddCartButton from "@/components/AddCartButton.vue";
 
 export default {
   name: "ProductPage",
@@ -47,10 +47,16 @@ export default {
       description: "",
       price: 0,
       rating: { count: 0, rate: 0 },
+      isApiError: false,
     };
   },
   components: {
     AddCartButton,
+  },
+  methods: {
+    cartUpdate(cart) {
+      this.$emit("cartUpdate", cart);
+    },
   },
 };
 </script>
