@@ -11,8 +11,10 @@
             <p class="price-real">{{ price }}$</p>
             <p class="price-fake">{{ price * 2 }}$</p>
           </div>
-
-          <p class="product__title">{{ title }}</p>
+          <div>
+            <p class="product__category">{{ category }}</p>
+            <p class="product__title">{{ title }}</p>
+          </div>
           <div class="product__rate">
             <img src="@\assets\star_9jfrkmkc6jof.svg" alt="" />
             <p>{{ rate }}</p>
@@ -35,7 +37,7 @@ import AddCartButton from "./AddCartButton.vue";
 
 export default {
   name: "ProductCard",
-  props: ["id", "title", "description", "image", "price", "rate"],
+  props: ["id", "title", "description", "image", "price", "rate", "category"],
   emits: ["cartUpdate"],
   components: {
     AddCartButton,
@@ -94,7 +96,7 @@ export default {
   gap: 10px;
 }
 
-.product__info-body{
+.product__info-body {
   padding: inherit;
   display: flex;
   flex-direction: inherit;
@@ -106,6 +108,15 @@ export default {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+}
+
+.product__category {
+  color: gray;
+  font-size: 14px;
+}
+
+.product__category::first-letter {
+  text-transform: uppercase;
 }
 
 .product__img {

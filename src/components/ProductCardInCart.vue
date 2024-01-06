@@ -6,7 +6,10 @@
     <div class="product-in-cart__body">
       <div class="d-flex gap-4">
         <img class="product-in-cart__image" :src="image" :alt="title" />
+        <div>
         <p>{{ title }}</p>
+        <p class="product__category">{{ category }}</p>
+      </div>
       </div>
       <div class="price">
         <p class="price-real">{{ price }}$</p>
@@ -24,7 +27,7 @@
 
 <script>
 export default {
-  props: ["id", "title", "description", "image", "price", "rate"],
+  props: ["id", "title", "description", "image", "price", "rate", "category"],
   emits: ["removeCart"],
   methods: {
     removeCart() {

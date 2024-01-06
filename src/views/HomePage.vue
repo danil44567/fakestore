@@ -12,6 +12,7 @@
       :image="product.image"
       :price="product.price"
       :rate="product.rating.rate"
+      :category="product.category"
       @cartUpdate="cartUpdate"
     />
   </div>
